@@ -65,7 +65,7 @@ mysqli_set_charset($connection,'utf8');
 </div>
 <br>
 
-
+<form action="send.php" method="post">
 <?php
 $sql = "SELECT * FROM object";
 $result = mysqli_query($connection,$sql);
@@ -122,8 +122,46 @@ if(!$result){
 }
 ?>
 
-
-
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th style="width: 8%;" scope="col"></th>
+      <th style="width: 45%;" scope="col">สอบถามความเห็น</th>
+      <th style="text-align: center;" scope="col">ใช่</th>
+      <th style="text-align: center;" scope="col">ไม่ใช่</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php 
+  $sql3 = "SELECT * FROM opinion";  
+  $result3 = mysqli_query($connection,$sql3);
+  if(!$result3){
+    ?><br>
+    <div class="alert alert-danger" role="alert">
+    เกิดข้อผิดพลาดบางอย่าง ไม่สามารถเรียกดูได้
+    </div>
+    <?php
+  }else{
+      $q = 1;
+    while($row3 = mysqli_fetch_assoc($result3)){
+    ?>
+    <tr>
+      <td style="text-align: center;" ><?php echo $q; ?></td>
+      <td><?php echo $row3['opinion_datail']; ?></td>
+      <td style="text-align: center;"><input type="radio" value="Y" name="opin<?php echo $q; ?>" required ></td>
+      <td style="text-align: center;"><input type="radio" value="N" name="opin<?php echo $q; ?>" required ></td>
+    </tr>
+    <?php
+    $q++;
+    }
+  }
+  ?>
+  </tbody>
+</table><br>
+<div class="sum" style="text-align: center;">
+    <button type="Submit" name="submit" class="btn btn-info">ตกลง</button>
+</div>
+</form>
 
 <!-- ปิด container -->
 </div>
