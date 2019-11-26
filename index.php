@@ -1,5 +1,8 @@
 <?php
 ob_start();
+if(isset($_POST['submit'])){
+  header("location:send.php"); 
+}else{
 include("database/database.php"); 
 $connection = mysqli_connect($localhost,$username,$pass,$database);
 mysqli_set_charset($connection,'utf8');
@@ -173,5 +176,6 @@ if(!$result){
   </body>
 </html>
 <?php
+}
 ob_end_flush(); 
 ?>

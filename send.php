@@ -16,11 +16,18 @@ mysqli_set_charset($connection,'utf8');
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
-  <body>
+  <body><br><br><br><br><br><br>
 <style>
- body{
+  body{
 font-family: 'Kanit', sans-serif;
-background-color: #FAFAFA;
+background-color: #D6D5D5;
+  }
+  .card{
+    margin: 0 auto 0 auto; 
+  }
+  .zz{
+    text-align: center;
+    background-color: #9EEA97;
   }
 </style>
 <div class="container">
@@ -61,7 +68,6 @@ if(!$result2){
         }
     $q++;
     }
-}
 
 
 $sql2 = "SELECT * FROM voteoption";
@@ -98,6 +104,44 @@ if(!$result2){
         }
     $x++;
     }  
+}
+
+
+$sql3 = "SELECT * FROM people";
+$result3 = mysqli_query($connection,$sql3);
+if(!$result3){
+    ?><br>
+    <div class="alert alert-danger" role="alert">
+    เกิดข้อผิดพลาดบางอย่าง 
+    </div>
+    <?php
+}else{
+$row3 = mysqli_fetch_assoc($result3);
+if($row3['number'] == 0){
+    $sql = "UPDATE people SET number = 1 WHERE id = 1";
+    $result = mysqli_query($connection,$sql);
+}else{
+    $p = 1;
+    $p += $row3['number'];
+    $sql = "UPDATE people SET number = $p WHERE id = 1";
+    $result = mysqli_query($connection,$sql);
+}
+}
+?>
+<div class="card" style="width: 18rem;">
+  <div class="zz" >
+  <img src="image/checked.png" class="card-img-top" style="width: 100px; height: 100px;"  alt="...">
+  </div>
+  
+  <div class="card-body" style="text-align: center;" >
+    <h5 class="card-text">
+    ขอบคุณที่ทำแบบสอบถาม
+    </h5><h6>ส่งสำเร็จ</h6><br>
+    <a class="btn btn-danger btn-sm" href="index.php" role="button">ตกลง</a>
+  </div>
+
+<?php
+
 }
 ?>
 </div>
